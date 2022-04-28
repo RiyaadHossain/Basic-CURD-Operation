@@ -24,15 +24,23 @@ async function run() {
 
     
     // 1. GET
-    app.get('/user', async (request, response) => {
-        const cursor = userCollection.find({})
-        const result = await cursor.toArray()
+    app.get('/users', async (request, response) => {
+        const result = await userCollection.find({}).toArray()
+        
         response.send(result)
     })
       
       
     // 2. POST
+      app.post('/user', async (req, res) => {
+          const userData = req.body
+          const result = await userCollection.insertOne(userData);
+          res.send(result)
+      })
+      
     // 3. DELETE
+      
+      
     // 4. PUT
       
   } finally {
