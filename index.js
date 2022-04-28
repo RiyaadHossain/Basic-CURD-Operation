@@ -48,6 +48,22 @@ async function run() {
       })
       
     // 4. PUT
+      app.put('/user/:id', async (req, res) => {
+          const id = req.params.id
+        const info = req.body
+        console.log(info);
+        const filter = {_id: ObjectId(id)}
+        const options = { upsert: true };
+        const updateDoc = {
+          $set: {
+            name: info.name,
+            image: info.image,
+          },
+        };
+        const result = await userCollection.updateOne(filter, updateDoc, options)
+        res.send(result)
+        
+      })
       
   } finally {
     // await client.close();
